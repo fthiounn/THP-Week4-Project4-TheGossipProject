@@ -4,7 +4,6 @@
 
 Ce qu'il reste a faire :
 
-	- implementer plusieurs recipients pour les private message
 	- les likes
 	- les commentaires de commentaires
 

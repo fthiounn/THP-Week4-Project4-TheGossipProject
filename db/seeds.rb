@@ -74,13 +74,24 @@ end
 nb_messages.times do |x|
 	message = PrivateMessage.create(
 		sender_id: users[rand(0..nb_user-1)].id,
-		recipient_id: users[rand(0..nb_user-1)].id,
 		content: Faker::Lorem.paragraph)
 	messages << message
 	puts "Seeding Private messages nb#{x}"
-
 end
-
+#adding at least 1 recipient
+nb_messages.times do |x|
+	RecipientList.create(
+		private_message_id: messages[x].id,
+		recipient_id: users[rand(0..nb_user-1)].id)
+	puts "Seeding Recipient to Private messages nb#{x}"
+end
+#seeding des recipients
+nb_messages.times do |x|
+	RecipientList.create(
+		private_message_id: messages[rand(0..nb_messages-1)].id,
+		recipient_id: users[rand(0..nb_user-1)].id)
+	puts "Seeding Random Recipients Recipient to Private messages nb#{x}"
+end
 
 
 

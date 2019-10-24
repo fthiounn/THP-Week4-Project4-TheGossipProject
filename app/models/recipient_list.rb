@@ -1,0 +1,2 @@
+class RecipientList < ApplicationRecord
+end
