@@ -24,6 +24,7 @@ tags = []
 messages = []
 likes = []
 comments = []
+comments2 = []
 
 #seeding des villes
 nb_city.times do |x|
@@ -128,6 +129,15 @@ nb_likes.times do |x|
 		gossip_id: gossips[rand(0..nb_gossip-1)].id)
 	likes << like
 	puts "Seeding Random Recipients Recipient to Private messages nb#{x}"
+end
+#seeding comments of comments
+nb_comments.times do |x|
+	comment = Comment.create(
+    	content: Faker::Lorem.paragraph,
+    	user_id: users[rand(0..nb_user-1)].id,
+    	comment_id: comments[rand(0..nb_comments-1)].id)
+	comments2 << comment
+	puts "Seeding comments to comments of gossips nb#{x}"
 end
 
 
