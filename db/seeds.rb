@@ -15,11 +15,15 @@ nb_city = 10
 nb_gossip = 20
 nb_tags = 10
 nb_messages = 20
+nb_comments = 20
+nb_likes = 20
 users = []
 cities = []
 gossips = []
 tags = []
 messages = []
+likes = []
+comments = []
 
 #seeding des villes
 nb_city.times do |x|
@@ -62,10 +66,17 @@ nb_tags.times do |x|
  	puts "Seeding tag nb#{x}"
 end
 
-#seed des gossip_tags
+#seed des gossip_tags (1 par gossip)
 nb_gossip.times do |x|
 	GossipTag.create(
 			gossip_id: gossips[x],
+			tag_id: tags[rand(0..nb_tags-1)].id)
+	puts "Seeding a tag to the gossip nb#{x}"
+end
+#seed de tags supplementaires
+10.times do |x|
+	GossipTag.create(
+			gossip_id: gossips[rand(0..nb_gossip-1)],
 			tag_id: tags[rand(0..nb_tags-1)].id)
 	puts "Seeding a tag to the gossip nb#{x}"
 end
@@ -78,20 +89,58 @@ nb_messages.times do |x|
 	messages << message
 	puts "Seeding Private messages nb#{x}"
 end
-#adding at least 1 recipient
+#adding at least 1 recipient per pm
 nb_messages.times do |x|
-	RecipientList.create(
+	message = RecipientList.create(
 		private_message_id: messages[x].id,
 		recipient_id: users[rand(0..nb_user-1)].id)
+	messages << message
 	puts "Seeding Recipient to Private messages nb#{x}"
 end
 #seeding des recipients
 nb_messages.times do |x|
-	RecipientList.create(
+	message = RecipientList.create(
 		private_message_id: messages[rand(0..nb_messages-1)].id,
 		recipient_id: users[rand(0..nb_user-1)].id)
+	messages << message
 	puts "Seeding Random Recipients Recipient to Private messages nb#{x}"
 end
+#seeding des comments
+nb_comments.times do |x|
+	comment = Comment.create(
+    	content: Faker::Lorem.paragraph,
+    	user_id: users[rand(0..nb_user-1)].id,
+    	gossip_id: gossips[rand(0..nb_gossip-1)].id)
+	comments << comment
+	puts "Seeding comments to gossips nb#{x}"
+end
+
+#seeding des likes vers comments
+nb_likes.times do |x|
+	like = Like.create(
+		comment_id: comments[rand(0..nb_comments-1)].id)
+	likes << like
+	puts "Seeding Random Recipients Recipient to Private messages nb#{x}"
+end
+#seeding des likes vers gossip
+nb_likes.times do |x|
+	like = Like.create(
+		gossip_id: gossips[rand(0..nb_gossip-1)].id)
+	likes << like
+	puts "Seeding Random Recipients Recipient to Private messages nb#{x}"
+end
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
