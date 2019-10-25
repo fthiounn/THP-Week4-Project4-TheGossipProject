@@ -74,6 +74,7 @@ nb_gossip.times do |x|
 			tag_id: tags[rand(0..nb_tags-1)].id)
 	puts "Seeding a tag to the gossip nb#{x}"
 end
+
 #seed de tags supplementaires
 10.times do |x|
 	GossipTag.create(

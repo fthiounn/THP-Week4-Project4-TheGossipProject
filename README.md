@@ -18,7 +18,3 @@ notes :
 
 - Les commentaires soit soit lies a un gossipID soit a un autre commentaireID (comment of comment)
 - les likes sont soit relies a un commentaireID soit a un gossipID
-
-
-
-
